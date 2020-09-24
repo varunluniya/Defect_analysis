@@ -13,10 +13,8 @@ import pandas as pd
 #Read data from (virtual) serial port
 import serial
 
-import json
-
 app = dash.Dash(__name__)
-server = app.server
+#server = app.server
 #app.config['suppress_callback_exceptions']=True
 
 df = pd.DataFrame()
@@ -238,8 +236,6 @@ app.layout = html.Div([
 ##########################################################################
 
 
-
-
 ##########################################################################
 #Funtion for scanning the catcode
 #Start
@@ -265,8 +261,6 @@ def catcode(port = 'COM4', baud_rate = 9600, n_char = 19, t = 2):
 #Funtion for scanning the catcode
 #End
 ##########################################################################
-
-
 
 
 ##########################################################################
@@ -301,8 +295,6 @@ def parse_contents(contents, filename):
 ##########################################################################
 
 
-
-
 ##########################################################################
 #Function to search catcode in uploaded database
 #Start
@@ -311,7 +303,7 @@ def parse_contents(contents, filename):
 
 def catcode_search(database, catcode):
     print("I'm inside catcode_search function!")
-    if (catcode):
+    if (catcode.isspace() == 'FALSE'):
         if (not database.empty):
                 #To make the list of testpoints with '_RES' in name
                 testpoint = list((database.columns.values))
@@ -386,7 +378,6 @@ def catcode_search(database, catcode):
 ##########################################################################
 
 
-
 ##########################################################################
 #Callback function of "output-container"
 #Start
@@ -432,8 +423,6 @@ def update_output(n_clicks, ts, port, baud_rate, n_char, time, data):
 #Callback function of "output-data-upload"
 #End
 ##########################################################################
-
-
 
 
 ##########################################################################
@@ -528,14 +517,13 @@ def database_search(jsonified_cleaned_data, n_clicks, data):
 ##########################################################################
 
 
-
 ##########################################################################
 #To run the dash app in development server
 #Start
 ##########################################################################
   
-#if __name__ == '__main__':
-#    app.run_server(port=8050, host='0.0.0.0')
+if __name__ == '__main__':
+    app.run_server(port=8050, host='0.0.0.0')
     
 ##########################################################################
 #To run the dash app in development server
@@ -543,14 +531,12 @@ def database_search(jsonified_cleaned_data, n_clicks, data):
 ##########################################################################
 
 
-
 ##########################################################################
 #To run the dash app in production server
 #Start
 ##########################################################################
 
-if __name__ == '__main__':
-	app.run_server(debug=False,host='0.0.0.0',port=8050)
+#gunicorn -b 0.0.0.0:8050 index:app.server
     
 ##########################################################################
 #To run the dash app in production server
