@@ -8,7 +8,7 @@ options = {
             'cx_Logging', 'idna',
         ],
         'packages': [
-            'asyncio', 'flask', 'jinja2', 'dash', 'plotly', 'waitress','pandas','xlrd','pyqt5'
+            'asyncio', 'flask', 'jinja2', 'dash', 'plotly', 'waitress','pandas','xlrd','PyQt5'
         ],
         'excludes': ['tkinter']
     }
@@ -16,15 +16,14 @@ options = {
 
 executables = [
     Executable('server.py',
-               base='console',
-               targetName='app.exe')
+               targetName='defect_analysis.exe')
 ]
 
 setup(
-    name='app',
+    name='defect_analysis',
     packages=find_packages(),
     version='0.1.0',
-    description='def_ana',
+    description='find a scanned cat-code from a uploaded file',
     executables=executables,
     options=options
 )
